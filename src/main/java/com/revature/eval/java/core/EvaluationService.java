@@ -30,8 +30,12 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String[] words = phrase.split("\\W+");
+		char[] acronym = new char[words.length];
+		for(int i = 0; i < words.length; i++) {
+			acronym[i] = words[i].toUpperCase().charAt(0);
+		}
+		return new String(acronym);
 	}
 
 	/**
@@ -82,20 +86,29 @@ public class EvaluationService {
 		public void setSideThree(double sideThree) {
 			this.sideThree = sideThree;
 		}
+		
+		public int getEqualSides() {
+			int equalSides;
+			if(this.sideOne == this.sideTwo && this.sideOne == this.sideThree) {
+				equalSides = 3;
+			} else if (this.sideOne == this.sideTwo || this.sideOne == this.sideThree || this.sideTwo == this.sideThree) {
+				equalSides = 2;
+			} else {
+				equalSides = 0;
+			}
+			return equalSides;
+		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			return this.getEqualSides() == 3 ? true : false;
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			return this.getEqualSides() == 2 ? true : false;
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			return this.getEqualSides() == 0 ? true : false;
 		}
 
 	}
