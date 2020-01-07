@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -129,8 +130,26 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		int value = 0;
+		String[] letters = new String[] {"AEIOULNRST", "DG", "BCMP", "FHVWY", "K"};
+		HashMap<Character, Integer> letterValues = new HashMap<>();
+		for(int i = 0; i < letters.length; i++) {
+			for(char letter : letters[i].toCharArray()) {
+				letterValues.put(letter, i+1);
+			}
+		}
+		letterValues.put('J', 8);
+		letterValues.put('X', 8);
+		letterValues.put('Q', 10);
+		letterValues.put('Z', 10);
+		
+		char[] word = string.toUpperCase().toCharArray();
+		
+		for(char letter : word) {
+			value += letterValues.get(letter);
+		}
+		System.out.println(string + ": " + value);
+		return value;
 	}
 
 	/**
