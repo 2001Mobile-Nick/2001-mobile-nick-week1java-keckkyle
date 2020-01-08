@@ -148,7 +148,6 @@ public class EvaluationService {
 		for(char letter : word) {
 			value += letterValues.get(letter);
 		}
-		System.out.println(string + ": " + value);
 		return value;
 	}
 
@@ -184,8 +183,15 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String number = string.replaceAll("\\D", "");
+		if(number.charAt(0) == '1') {
+			number = number.substring(1);
+		}
+		if(number.length() != 10) {
+			throw new IllegalArgumentException("Invalid phone number.");
+		} else {
+			return number;
+		}
 	}
 
 	/**
@@ -198,8 +204,17 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
+		Map<String, Integer> count = new HashMap<>();
+		String[] words = string.split("\\W+");
+		for(String word : words) {
+			if(!count.containsKey(word)) {
+				count.put(word, 1);
+			} else {
+				count.replace(word, count.get(word)+1);
+			}
+		}
 		// TODO Write an implementation for this method declaration
-		return null;
+		return count;
 	}
 
 	/**
