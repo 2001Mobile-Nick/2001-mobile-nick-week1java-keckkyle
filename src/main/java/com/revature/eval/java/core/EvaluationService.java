@@ -252,6 +252,8 @@ public class EvaluationService {
 	 * binary search is a dichotomic divide and conquer search algorithm.
 	 * 
 	 */
+	
+//	1, 2, 3, 5, 6, 10, 12, 30
 	static class BinarySearch<T> {
 		private List<T> sortedList;
 
@@ -313,7 +315,15 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isArmstrongNumber(int input) {
-		// TODO Write an implementation for this method declaration
+		char[] numbers = String.valueOf(input).toCharArray();
+		int numLength = numbers.length;
+		double value = 0;
+		for(int i = 0; i < numLength; i++) {
+			value += Math.pow(Character.getNumericValue(numbers[i]), numLength);
+		}
+		if(input == (int)value) {
+			return true;
+		}
 		return false;
 	}
 
