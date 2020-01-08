@@ -494,7 +494,21 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isValidIsbn(String string) {
-		// TODO Write an implementation for this method declaration
+		String numbers = string.replaceAll("(?i)[A-WYZ\\-]", "");
+		if(numbers.length() == 10) {
+			int value = 0;
+			for(int i = 0, j=10; i < 10; i++, j--) {
+				if(numbers.charAt(i) == 'X') {
+					value += 10 * j;
+				} else {
+					int num = Character.getNumericValue(numbers.charAt(i));
+					value += num * j;
+				}
+			}
+			if(value%11 == 0) {
+				return true;
+			}
+		}
 		return false;
 	}
 
