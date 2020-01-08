@@ -294,9 +294,31 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	public String toPigLatin(String string) {
-		// TODO Write an implementation for this method declaration
+	
+	public String translatePL(String string) {
+		for(int i = 0; i < string.length(); i++) {
+			char letter = string.charAt(i);
+			if (letter == 'u') {
+				if(i != 0 && string.charAt(i-1) == 'q') {
+					return string.substring(i+1) + string.substring(0,i+1) + "ay";
+				} else {
+					return string.substring(i) + string.substring(0,i) + "ay";
+				}
+			}
+			if(letter == 'a' || letter == 'e' || letter == 'i' || letter == 'o') {
+				return string.substring(i) + string.substring(0,i) + "ay";
+			}
+		}
 		return null;
+	}
+	
+	public String toPigLatin(String string) {
+		String[] words = string.split("\\s");
+		for(int i = 0; i < words.length; i++) {
+			words[i] = translatePL(words[i]);
+		}
+		String pigLatin = String.join(" ", words);
+		return pigLatin;
 	}
 
 	/**
