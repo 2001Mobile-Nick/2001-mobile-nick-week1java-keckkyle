@@ -729,7 +729,21 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int solveWordProblem(String string) {
-		// TODO Write an implementation for this method declaration
+		String numString = string.replaceAll("[^0-9\\-]", " ");
+		numString = numString.trim();
+		String[] numbers = numString.split("\\s+");
+		int num1 = Integer.parseInt(numbers[0]);
+		int num2 = Integer.parseInt(numbers[1]);
+		if(string.contains("plus")) {
+			return num1 + num2;
+		} else if(string.contains("minus")) {
+			return num1 - num2;
+		} else if(string.contains("multiplied")) {
+			return num1 * num2;
+		} else if(string.contains("divided")) {
+			return num1/num2;
+		}
+
 		return 0;
 	}
 
