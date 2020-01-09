@@ -1,9 +1,12 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class EvaluationService {
 
@@ -361,7 +364,14 @@ public class EvaluationService {
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		List<Long> primeFactors = new ArrayList<Long>();
+		for(int i = 2; i <= l; i++) {
+			while ( l % i == 0 ) {
+				primeFactors.add((long)i);
+				l /= i;
+			}
+		}
+		return primeFactors;
 	}
 
 	/**
@@ -399,8 +409,20 @@ public class EvaluationService {
 		}
 
 		public String rotate(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			StringBuilder coded = new StringBuilder();
+			for(int i = 0; i < string.length(); i++) {
+				int current = (int)string.charAt(i);
+				if(Character.isUpperCase(string.charAt(i))) {
+					char newLetter = (char)((((current+this.key)-65)%26)+65);
+					coded.append(newLetter);
+				} else if (Character.isLowerCase(string.charAt(i))) {
+					char newLetter = (char)((((current+this.key)-97)%26)+97);
+					coded.append(newLetter);
+				} else {
+					coded.append(string.charAt(i));
+				}
+			}
+			return coded.toString();
 		}
 
 	}
@@ -418,8 +440,26 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int calculateNthPrime(int i) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		if (i <= 0) {
+			throw new IllegalArgumentException("Invalid number.");
+		}
+		
+		int count = 0;
+		int prime = 1;
+		
+		while(count < i) {
+			prime++;
+			int j;
+			for(j = 2; j < prime; j++) {
+				if(prime % j == 0) {
+					break;
+				}
+			}
+			if(j == prime) {
+				count++;
+			}
+		}
+		return prime;
 	}
 
 	/**
@@ -447,6 +487,9 @@ public class EvaluationService {
 	 *
 	 */
 	static class AtbashCipher {
+		
+		private static String plain = "abcdefghijklmnopqrstuvwxyz";
+		private static String cipher = "zyxwvutsrqponmlkjihgfedcba";
 
 		/**
 		 * Question 13
@@ -455,8 +498,20 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String encode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			StringBuilder coded = new StringBuilder();
+			String stringToCode = string.replaceAll("\\W","").toLowerCase();
+			for(int i = 0; i < stringToCode.length(); i++) {
+				int index = plain.indexOf(stringToCode.charAt(i));
+				if(i % 5 == 0 && i != 0) {
+					coded.append(" ");
+				}
+				if(index == -1) {
+					coded.append(stringToCode.charAt(i));
+				} else {
+					coded.append(cipher.charAt(index));
+				}
+			}
+			return coded.toString();
 		}
 
 		/**
@@ -466,8 +521,17 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String decode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			StringBuilder decoded = new StringBuilder();
+			String stringToDecode = string.replaceAll("\\W", "");
+			for(int i = 0; i < stringToDecode.length(); i++) {
+				int index = cipher.indexOf(stringToDecode.charAt(i));
+				if(index == -1) {
+					decoded.append(stringToDecode.charAt(i));
+				} else {
+					decoded.append(plain.charAt(index));
+				}
+			}
+			return decoded.toString();
 		}
 	}
 
@@ -526,8 +590,13 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		String alphabet = "abcdefghijklmnopqrstuvwxyz";
+		for(int i = 0; i < alphabet.length(); i++) {
+			if(string.indexOf(alphabet.charAt(i))==-1) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -557,8 +626,19 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getSumOfMultiples(int i, int[] set) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		int value = 0;
+		Set<Integer> multiples = new HashSet<Integer>();
+		for(int j = 0; j < i; j++) {
+			for(int num : set) {
+				if(j % num == 0) {
+					multiples.add(j);
+				}
+			}
+		}
+		for(int n : multiples) {
+			value += n;
+		}
+		return value;
 	}
 
 	/**
