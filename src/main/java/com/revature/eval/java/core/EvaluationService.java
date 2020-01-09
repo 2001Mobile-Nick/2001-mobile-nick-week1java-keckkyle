@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class EvaluationService {
 
@@ -678,7 +680,24 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isLuhnValid(String string) {
-		// TODO Write an implementation for this method declaration
+		Pattern regex = Pattern.compile("[^0-9\\s]");
+		Matcher match = regex.matcher(string);
+		if(match.find()) {
+			return false;
+		}
+		
+		String numbers = string.replaceAll(" ","");
+		int value = 0;
+		for(int i = 1; i < numbers.length(); i+=2) {
+			int num = Character.getNumericValue(numbers.charAt(i))*2;
+			if(num > 9) {
+				num = num-9;
+			}
+			value += num;
+		}
+		if(value % 10 == 0) {
+			return true;
+		}
 		return false;
 	}
 
