@@ -735,15 +735,20 @@ public class EvaluationService {
 			return false;
 		}
 		
-		String numbers = string.replaceAll(" ","");
+		String number = string.replaceAll(" ","");
 		int value = 0;
-		for(int i = 1; i < numbers.length(); i+=2) {
-			int num = Character.getNumericValue(numbers.charAt(i))*2;
-			if(num > 9) {
-				num = num-9;
+		
+		for(int i = number.length()-1, j = 1; i >=0; i--, j++) {
+			int num = Character.getNumericValue(number.charAt(i));
+			if(j % 2 == 0) {
+				num = num * 2;
+				if(num > 9) {
+					num = num - 9;
+				}
 			}
 			value += num;
 		}
+		
 		if(value % 10 == 0) {
 			return true;
 		}
