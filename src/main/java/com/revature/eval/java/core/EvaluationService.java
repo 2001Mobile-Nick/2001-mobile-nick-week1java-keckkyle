@@ -2,10 +2,7 @@ package com.revature.eval.java.core;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
-import java.time.temporal.TemporalAmount;
-import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -268,8 +265,43 @@ public class EvaluationService {
 		private List<T> sortedList;
 
 		public int indexOf(T t) {
-			// TODO Write an implementation for this method declaration
-			return 0;
+			int target = 0;
+			List<Integer> search = new ArrayList<Integer>();
+
+			if(t instanceof String) {
+				target = Integer.parseInt((String)t);
+				for(int i = 0; i < getSortedList().size(); i++) {
+					search.add(Integer.parseInt((String)getSortedList().get(i)));
+				}
+			}
+			if(t instanceof Integer) {
+				target = (Integer)t;
+				for(int i = 0; i < getSortedList().size(); i++) {
+					search.add((Integer)getSortedList().get(i));
+				}
+			}
+			
+			int min = 0;
+			int max = search.size() - 1;
+			int targetIndex = 0;
+
+			while(min<=max) {
+				int mid = (min+max)/2;
+
+				//check if search.get(mid) is target
+				if(search.get(mid) == target) {
+					targetIndex = mid;
+					break;
+				}
+				//check if target is smaller or greater than mid
+				if(search.get(mid) > target) {
+					max = mid-1;
+				} else { 
+					min = mid+1;
+				}
+			}
+			
+			return targetIndex;
 		}
 
 		public BinarySearch(List<T> sortedList) {
@@ -621,7 +653,8 @@ public class EvaluationService {
 		
 		if(given instanceof LocalDate) {
 			date = ((LocalDate) given).atStartOfDay();
-		}else if(given instanceof LocalDateTime) {
+		}
+		if(given instanceof LocalDateTime) {
 			date = (LocalDateTime) given;
 		}
 		
@@ -745,11 +778,13 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int solveWordProblem(String string) {
+		
 		String numString = string.replaceAll("[^0-9\\-]", " ");
 		numString = numString.trim();
 		String[] numbers = numString.split("\\s+");
 		int num1 = Integer.parseInt(numbers[0]);
 		int num2 = Integer.parseInt(numbers[1]);
+		
 		if(string.contains("plus")) {
 			return num1 + num2;
 		} else if(string.contains("minus")) {
