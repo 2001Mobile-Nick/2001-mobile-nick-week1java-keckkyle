@@ -96,15 +96,13 @@ public class EvaluationService {
 		}
 		
 		public int getEqualSides() {
-			int equalSides;
 			if(this.sideOne == this.sideTwo && this.sideOne == this.sideThree) {
-				equalSides = 3;
+				return 3;
 			} else if (this.sideOne == this.sideTwo || this.sideOne == this.sideThree || this.sideTwo == this.sideThree) {
-				equalSides = 2;
+				return 2;
 			} else {
-				equalSides = 0;
+				return 0;
 			}
-			return equalSides;
 		}
 
 		public boolean isEquilateral() {
@@ -220,7 +218,6 @@ public class EvaluationService {
 				count.replace(word, count.get(word)+1);
 			}
 		}
-		// TODO Write an implementation for this method declaration
 		return count;
 	}
 
@@ -402,7 +399,6 @@ public class EvaluationService {
 	 * @return
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
 		List<Long> primeFactors = new ArrayList<Long>();
 		for(int i = 2; i <= l; i++) {
 			while ( l % i == 0 ) {
@@ -631,7 +627,7 @@ public class EvaluationService {
 	public boolean isPangram(String string) {
 		String alphabet = "abcdefghijklmnopqrstuvwxyz";
 		for(int i = 0; i < alphabet.length(); i++) {
-			if(string.indexOf(alphabet.charAt(i))==-1) {
+			if(string.indexOf(alphabet.charAt(i)) == -1) {
 				return false;
 			}
 		}
@@ -647,7 +643,6 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Temporal getGigasecondDate(Temporal given) {
-		// TODO Write an implementation for this method declaration
 		long gigasecond = 1000000000;
 		LocalDateTime date = null;
 		
@@ -729,6 +724,7 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isLuhnValid(String string) {
+		//regex to check for invalid characters
 		Pattern regex = Pattern.compile("[^0-9\\s]");
 		Matcher match = regex.matcher(string);
 		if(match.find()) {
